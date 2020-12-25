@@ -1,0 +1,27 @@
+#todo-list {
+  text-align: left;
+}
+
+#todo-list .todo-control {
+  display: inline-flex;
+  flex-direction: row;
+  column-gap: 5px;
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+
+#todo-list .todo-text {
+  display: inline-block;
+  width: 180px;
+  }
+
+.disable-input{
+  pointer-events: none !important;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+.enable-input{
+  pointer-events: all !important;
+  border: 1px solid #292929;
+}
