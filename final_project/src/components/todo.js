@@ -1,49 +1,70 @@
-import { useState, useRef } from "react";
+// import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuidv4 } from 'uuid'
+
+import {addTodo} from './../redux/actions/todo'
+import {addTodos} from './../redux/actions/todo'
+import {removeTodos} from './../redux/actions/todo'
+import {editCurrent} from './../redux/actions/todo'
+import {editTodoText} from './../redux/actions/todo'
+
 
 function Todo() {
-    const [todo, setTodo] = useState('')
-    const [todos, setTodos] = useState([])
+    // const [todo, setTodo] = useState('')
+    // const [todos, setTodos] = useState([])
+    const todos = useSelector(state => state.todos)
+    const todo = useSelector(state => state.todo)
+    const dispatch = useDispatch()
 
     let handleAddTodo = e => {
         let {value} = e.target
-        setTodo(value)
+        dispatch(addTodo(value))
+        // setTodo(value)
     }
 
     let handleSubmit = e => {
         e.preventDefault()
-        setTodos(prevState => ([...prevState, {id: prevState.length + 1, text: todo}]))
-        setTodo('')
+        dispatch(addTodos({id: uuidv4(), text: todo, edit: false}))
+        dispatch(addTodo(''))
+        // setTodos(prevState => ([...prevState, {id: prevState.length + 1, text: todo}]))
+        // setTodo('')
     }
 
+    console.log(todos)
+
     let handleRemove= id => {
-        let items = todos.filter(todo => todo.id !== id)
-        setTodos(state => {
-            return [...items]
-        })
+        // let items = todos.filter(todo => todo.id !== id)
+        dispatch(removeTodos(id))
+        // setTodos(state => {
+            // return [...items]
+        // })
     }
 
     let handleEdit = (text, id) => {
-        let items = todos
-        let index = todos.findIndex(todo=>todo.id === id)
-        if (!items[index].edit) {
-            items[index].text = text
-            items[index].edit = true
-        }
-        else {
-            items[index].edit = false
-        }
-        setTodos(state=>{
-            return [...items]
-        })
+        dispatch(editCurrent(todos, id, text))
+        // let items = todos
+        // let index = todos.findIndex(todo=>todo.id === id)
+        // if (!items[index].edit) {
+        //     items[index].text = text
+        //     items[index].edit = true
+        // }
+        // else {
+        //     items[index].edit = false
+        // }
+        // setTodos(state=>{
+            // return [...items]
+        // })
     }
 
     let changeTodoText = (id, e) => {
-        let items = todos
-        let index = todos.findIndex(todo => todo.id === id)
-        items[index].text = e.target.value
-        setTodos(state => {
-            return [...items]
-        })
+        let {value} = e.target.value
+        dispatch(editTodoText(todos, id, value))
+        // let items = todos
+        // let index = todos.findIndex(todo => todo.id === id)
+        // items[index].text = value
+        // setTodos(state => {
+            // return [...items]
+        // })
     }
 
     return (
