@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {addTodo} from './../redux/actions/todo'
 import {addTodos} from './../redux/actions/todo'
 import {removeTodos} from './../redux/actions/todo'
-import {editCurrent} from './../redux/actions/todo'
+import {editItemTodos} from './../redux/actions/todo'
 import {editTodoText} from './../redux/actions/todo'
 
 
@@ -34,6 +34,7 @@ function Todo() {
 
     let handleRemove= id => {
         // let items = todos.filter(todo => todo.id !== id)
+        console.log(id)
         dispatch(removeTodos(id))
         // setTodos(state => {
             // return [...items]
@@ -41,30 +42,11 @@ function Todo() {
     }
 
     let handleEdit = (text, id) => {
-        dispatch(editCurrent(todos, id, text))
-        // let items = todos
-        // let index = todos.findIndex(todo=>todo.id === id)
-        // if (!items[index].edit) {
-        //     items[index].text = text
-        //     items[index].edit = true
-        // }
-        // else {
-        //     items[index].edit = false
-        // }
-        // setTodos(state=>{
-            // return [...items]
-        // })
+        dispatch(editItemTodos(todos, id, text))
     }
 
     let changeTodoText = (id, e) => {
-        let {value} = e.target.value
-        dispatch(editTodoText(todos, id, value))
-        // let items = todos
-        // let index = todos.findIndex(todo => todo.id === id)
-        // items[index].text = value
-        // setTodos(state => {
-            // return [...items]
-        // })
+        dispatch(editTodoText(todos, id, e.target.value))
     }
 
     return (

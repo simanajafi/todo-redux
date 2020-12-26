@@ -8,29 +8,37 @@ export const removeTodos = createAction('RemoveTodos')
 
 // const editTodo = createAction('EditTodo')
 
-const editTodos = createAction('EditTodos')
+export const editTodos = createAction('EditTodos')
 
 
-export function editCurrent(todos, id, text) {
+export function editItemTodos(todos, id, text) {
     return dispatch => {
-        let items = todos
-        let index = todos.findIndex(todo=>todo.id === id)
-        if (!items[index].edit) {
-            items[index].text = text
-            items[index].edit = true
-        }
-        else {
-            items[index].edit = false
-        }
+        let items = []
+        items = todos.map(item => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    edit: !item.edit
+                }
+            }
+            return item
+        })
         dispatch(editTodos(items))
     }
 }
 
 export function editTodoText(todos, id, value) {
     return dispatch => {
-        let items = todos
-        let index = todos.findIndex(todo => todo.id === id)
-        items[index].text = value
+        let items = []
+        items = todos.map(item => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    text: value,
+                }
+            }
+            return item
+        })
         dispatch(editTodos(items))
     }
 }

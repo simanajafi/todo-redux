@@ -14,6 +14,6 @@ export const todo = createReducer('', {
 
 export const todos = createReducer([], {
     AddTodos: (state, action) => [...state, action.payload],
-    RemoveTodos: (state, action) => state.filter(todo => todo.id !== action.id),
-    EditTodos: (state, action) => action.payload
+    RemoveTodos: (state, action) => state.filter(todo => todo.id !== action.payload),
+    EditTodos: (state, action) => action.payload,
 })
