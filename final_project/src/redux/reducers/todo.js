@@ -1,11 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit'
-// import {reducer} from 'redux'
 
-// export function todo(state='', action) {
-//     switch (action.type) {
-//         // case ''
-//     }
-// }
 
 export const todo = createReducer('', {
     AddTodo: (state, action) => action.payload,

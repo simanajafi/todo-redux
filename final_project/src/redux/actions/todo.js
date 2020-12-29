@@ -11,7 +11,7 @@ export const removeTodos = createAction('RemoveTodos')
 export const editTodos = createAction('EditTodos')
 
 
-export function editItemTodos(todos, id, text) {
+export function editItemTodos(todos, id) {
     return dispatch => {
         let items = []
         items = todos.map(item => {

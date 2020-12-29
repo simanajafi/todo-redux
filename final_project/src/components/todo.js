@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid'
 
@@ -10,8 +9,6 @@ import {editTodoText} from './../redux/actions/todo'
 
 
 function Todo() {
-    // const [todo, setTodo] = useState('')
-    // const [todos, setTodos] = useState([])
     const todos = useSelector(state => state.todos)
     const todo = useSelector(state => state.todo)
     const dispatch = useDispatch()
@@ -19,30 +16,22 @@ function Todo() {
     let handleAddTodo = e => {
         let {value} = e.target
         dispatch(addTodo(value))
-        // setTodo(value)
     }
 
     let handleSubmit = e => {
         e.preventDefault()
         dispatch(addTodos({id: uuidv4(), text: todo, edit: false}))
         dispatch(addTodo(''))
-        // setTodos(prevState => ([...prevState, {id: prevState.length + 1, text: todo}]))
-        // setTodo('')
     }
 
     console.log(todos)
 
     let handleRemove= id => {
-        // let items = todos.filter(todo => todo.id !== id)
-        console.log(id)
         dispatch(removeTodos(id))
-        // setTodos(state => {
-            // return [...items]
-        // })
     }
 
-    let handleEdit = (text, id) => {
-        dispatch(editItemTodos(todos, id, text))
+    let handleEdit = (id) => {
+        dispatch(editItemTodos(todos, id))
     }
 
     let changeTodoText = (id, e) => {
@@ -52,9 +41,9 @@ function Todo() {
     return (
         <div className="col-md-4 mt-3">
             <form onSubmit={handleSubmit}>
-                <span>Add Todo: </span>
-                <input type="text" id="inputText" value={todo} onChange={handleAddTodo}  />
-                <button type="submit">Add Todo</button>
+                <span data-testid="span">Add Todo: </span>
+                <input type="text" id="inputText" value={todo} data-testid="inputText" onChange={handleAddTodo}  />
+                <button data-testid="addButton" type="submit">Add Todo</button>
             </form>
             <hr />
             <h4>Todos List</h4>
@@ -64,7 +53,7 @@ function Todo() {
                         <input className={`todo-text ${todo.edit ? 'enable-input': 'disable-input'}`} 
                                 value={todo.text} onChange={e => changeTodoText(todo.id, e)} />
                         <span className="todo-control">
-                            <button onClick={() => handleEdit(todo.text, todo.id)}>
+                            <button onClick={() => handleEdit(todo.id)}>
                                 {!todo.edit ? 'Edit' : 'Apply'}
                                 </button>
                             <button onClick={() => handleRemove(todo.id)}>Remove</button>
