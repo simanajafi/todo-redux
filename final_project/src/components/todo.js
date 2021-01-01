@@ -24,7 +24,6 @@ function Todo() {
         dispatch(addTodo(''))
     }
 
-    console.log(todos)
 
     let handleRemove= id => {
         dispatch(removeTodos(id))

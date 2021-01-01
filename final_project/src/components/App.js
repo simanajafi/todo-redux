@@ -1,5 +1,5 @@
 import './App.css';
-import Todo from './components/todo';
+import Todo from './todo';
 import 'bootstrap/dist/css/bootstrap.css'
 
 
