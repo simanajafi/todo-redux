@@ -36,5 +36,5 @@ test('Todo testing', async () => {
     })
     
     expect(container.querySelector("h4").textContent).toBe('Todos List')
-    // expect(container.textContent).toBe(fakeTodo.text)
+    expect(container.querySelector("li > input").value).toBe(fakeTodo.text)
   })
